@@ -22,4 +22,12 @@ defmodule KV.RegistryTest do
     Agent.stop(bucket)
     assert KV.Registry.lookup(registry, "cookies") == :error
   end
+
+  test "removes bucket on crash", %{registry: registry} do
+    KV.Registry.create(registry, "veggies")
+    {:ok, bucket} = KV.Registry.lookup(registry, "veggies")
+
+    Agent.stop(bucket, :shutdown)
+    assert KV.Registry.lookup(registry, "veggies") == :error
+  end
 end
