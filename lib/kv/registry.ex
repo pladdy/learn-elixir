@@ -1,10 +1,17 @@
 defmodule KV.Registry do
   use GenServer
 
+  # TODO: why not remove `pid` argument and reference KV.Registry in those
+  #       places?  Makes the client API simpler and there's less to type...
+  #       but what are the consequences?
+
   @doc """
   Starts the registry.
   """
+  # TODO: can make this function name `new` and specify a child_spec
   def start_link(opts) do
+    # Since the supervisor starts the registry, name can be omitted
+    # opts = Enum.concat(opts, name: KV.Registry) |> Enum.uniq()
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 

@@ -4,6 +4,7 @@ defmodule KV.Bucket do
   @doc """
   Create a new bucket.
   """
+  # TODO: can make this function name `new` and specify a child_spec
   @spec start_link(list) :: {:ok, pid}
   def start_link(_opts) do
     Agent.start_link(fn -> %{} end)
