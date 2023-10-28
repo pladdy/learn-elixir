@@ -2,6 +2,8 @@ defmodule KV.RegistryTest do
   use ExUnit.Case, async: true
 
   setup do
+    # Since KV.Registry is started with the app, this is no longer necessary
+    # `registry = KV.Registry` would work (or no setup block)
     registry = start_supervised!(KV.Registry)
     %{registry: registry}
   end

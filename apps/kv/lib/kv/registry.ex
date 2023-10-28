@@ -12,6 +12,7 @@ defmodule KV.Registry do
   def start_link(opts) do
     # Since the supervisor starts the registry, name can be omitted
     # opts = Enum.concat(opts, name: KV.Registry) |> Enum.uniq()
+    IO.puts("starting a registry #{inspect(opts)}")
     GenServer.start_link(__MODULE__, :ok, opts)
   end
 
