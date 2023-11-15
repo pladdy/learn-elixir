@@ -15,7 +15,7 @@ defmodule KVServerTest do
     %{socket: socket}
   end
 
-  @tag :distributed
+  # @tag :distributed
   test "server interaction", %{socket: socket} do
     # without \r\n in the command, the server timesout
     assert send_and_recv(socket, "UNKNOWN shopping\r\n") ==

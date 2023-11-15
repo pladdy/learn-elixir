@@ -24,7 +24,6 @@ defmodule KV.Router do
   end
 
   defp table() do
-    computer_name = String.trim(elem(System.cmd("hostname", ["-s"]), 0))
-    [{?a..?m, :"foo@#{computer_name}"}, {?n..?z, :"bar@#{computer_name}"}]
+    Application.fetch_env!(:kv, :routing_table)
   end
 end

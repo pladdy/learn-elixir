@@ -1,5 +1,17 @@
 defmodule KV.RouterTest do
-  use ExUnit.Case, async: true
+  use ExUnit.Case
+
+  setup_all do
+    current = Application.get_env(:kv, :routing_table)
+    computer_name = String.trim(elem(System.cmd("hostname", ["-s"]), 0))
+
+    Application.put_env(:kv, :routing_table, [
+      {?a..?m, :"foo@#{computer_name}"},
+      {?n..?z, :"bar@#{computer_name}"}
+    ])
+
+    on_exit(fn -> Application.put_env(:kv, :routing_table, current) end)
+  end
 
   @tag :distributed
   test "route requests across nodes" do
